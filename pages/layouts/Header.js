@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
+import { Navbar, Nav } from 'react-bootstrap';
 
 const styles = {
     navbar: {
