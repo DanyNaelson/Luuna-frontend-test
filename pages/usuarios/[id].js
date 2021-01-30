@@ -39,7 +39,7 @@ const User = () => {
                 <title>{user.name} - Luuna</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            {user &&
+            {user.hasOwnProperty('id') &&
                 <Card style={styles.card}>
                     <Card.Img variant="top" className={['img-fluid']} alt="Responsive image" src={user.avatar_url} />
                     <Card.Body>

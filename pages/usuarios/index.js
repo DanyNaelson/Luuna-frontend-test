@@ -11,7 +11,7 @@ const index = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        if(inputValue === ""){
+        if(inputValue === "" || inputValue === undefined){
             fetch("https://api.github.com/users")
                 .then(res => res.json())
                 .then(
