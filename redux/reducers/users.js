@@ -1,11 +1,11 @@
 import * as types from './../types/users'
 
 /**
- * Initial State
+ * Initial user state
  */
 const initialUserState = {
     users: [],
-    inputUserSearch: ''
+    inputUserSearch: ""
 }
   
 /**
@@ -21,7 +21,8 @@ const userReducer = (state = initialUserState, { type, payload }) => {
             }
         case types.GET_USERS:
             return {
-                users: payload.users
+                users: payload.users,
+                inputUserSearch: state.inputUserSearch
             }
         case types.GET_USER_BY_ID:
             return state.users.map(user =>

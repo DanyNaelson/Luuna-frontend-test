@@ -1,12 +1,33 @@
 import Head from 'next/head';
-import React from 'react';
-import { Form, FormControl, Button } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import { Form, FormControl } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateUserSearch } from '../../redux/actions/users';
+import UserList from '../../components/UserList';
+import { updateUserSearch, getUsers } from '../../redux/actions/users';
 
 const index = () => {
-    const inputValue = useSelector((state) => state.inputUserSearch)
+    const [users, setUsers] = useState([])
+    const inputValue = useSelector((state) => state.users.inputUserSearch)
     const dispatch = useDispatch()
+
+    useEffect(() => {
+        if(inputValue === ""){
+            fetch("https://api.github.com/users")
+                .then(res => res.json())
+                .then(
+                    (result) => {
+                        dispatch(getUsers(result))
+                        setUsers(result)
+                    },
+                    (error) => {
+                        console.log(error)
+                    }
+                )
+        } else {
+            const filteredUsers = users.filter(user => user.login.toLowerCase().indexOf(inputValue.toLowerCase()) > -1)
+            setUsers(filteredUsers)
+        }
+    }, [inputValue]);
 
     return (
         <>
@@ -17,8 +38,8 @@ const index = () => {
             <h1>Usuarios</h1>
             <Form inline>
                 <FormControl type="text" placeholder="Buscar" className="mr-sm-2" value={inputValue} onChange={e => dispatch(updateUserSearch(e.target.value))} />
-                <Button variant="outline-info">Buscar</Button>
             </Form>
+            <UserList users={users} />
         </>
     );
 };

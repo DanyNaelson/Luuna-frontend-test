@@ -21,7 +21,8 @@ const repoReducer = (state = initialUserState, { type, payload }) => {
             }
         case types.GET_REPOS:
             return {
-                repos: payload.repos
+                repos: payload.repos,
+                inputRepoSearch: state.inputRepoSearch
             }
         case types.GET_REPO_BY_ID:
             return state.repos.map(repo =>
